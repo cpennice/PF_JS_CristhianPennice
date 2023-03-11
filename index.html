@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Carrito de compras</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.css"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <h1>Carrito de compras</h1>
+    <table id="cartTable">
+      <thead>
+        <tr>
+          <th>Nombre del artículo</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody id="cartBody"></tbody>
+    </table>
+    <p id="total">
+      Valor total de los artículos en tu carrito: $<span id="totalValue"
+        >0</span
+      >
+    </p>
+    <div><button id="addItemButton">Agregar artículo</button></div>
+
+    <div id="weather-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.min.js"></script>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
