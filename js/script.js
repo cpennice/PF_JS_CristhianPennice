@@ -116,26 +116,36 @@ function saveCartItemsToStorage() {
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 }
 
-async function fetchWeather() {
-  const weatherContainer = document.getElementById("weather-container");
-
+function fetchWeather() {
   const apiKey = "1ebc5fc1555d129636eda25ed8b5ee36";
   const city = "Buenos Aires";
 
-  const response = await fetch(
+  return fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-  );
-  const data = await response.json();
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const kelvin = data.main.temp;
+      const celsius = kelvin - 273.15;
+      const fahrenheit = (celsius * 9) / 5 + 32;
 
-  const kelvin = data.main.temp;
-  const celsius = kelvin - 273.15;
-  const fahrenheit = (celsius * 9) / 5 + 32;
-
-  weatherContainer.innerHTML = `
-      <h2>${data.name}</h2>
-      <p>Current temperature: ${celsius.toFixed(2)} &deg;F</p>
-      <p>Description: ${data.weather[0].description}</p>
-    `;
+      return {
+        nombre: data.name,
+        temperatura: celsius.toFixed(2),
+        descripcion: data.weather[0].description,
+      };
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
-fetchWeather();
+fetchWeather().then((weatherData) => {
+  const weatherContainer = document.getElementById("weather-container");
+
+  weatherContainer.innerHTML = `
+      <h2>${weatherData.nombre}</h2>
+      <p>Current temperature: ${weatherData.temperatura} &deg;C</p>
+      <p>Description: ${weatherData.descripcion}</p>
+    `;
+});
